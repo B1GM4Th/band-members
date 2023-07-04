@@ -1,22 +1,24 @@
 <script setup>
 import { ref } from 'vue';
 
-const listMembers = ref([
-  {
-    nome: 'Matheus',
-    sobrenome: 'Santos',
-    instrumento: 'Guitarra'
-  },
-  {
-    nome: 'Beatriz',
-    sobrenome: 'Santos',
-    instrumento: 'Violão'
-  }
-])
+const listMembers = ref([])
 
-const newMember = ref({})
+const newMember = ref({
+  nome: '',
+  sobrenome: '',
+  instrumento: '',
+})
+
 const addNewMember = () => {
+  if(newMember.value.nome && newMember.value.sobrenome && newMember.value.instrumento)
   listMembers.value.push(newMember.value)
+  newMember.value = {}
+}
+const excludeMember = (item) => {
+  const i = listMembers.value.indexOf(item)
+  if(i > -1) {
+    listMembers.value.splice(i, 1)
+  }
 }
 </script>
 
@@ -37,6 +39,7 @@ const addNewMember = () => {
           <td>{{ member.nome }}</td>
           <td>{{ member.sobrenome }}</td>
           <td>{{ member.instrumento }}</td>
+          <td @click="excludeMember(member)">X</td>
         </tr>
       </tbody>
     </table>
