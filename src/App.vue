@@ -1,4 +1,24 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue';
+
+const listMembers = ref([
+  {
+    nome: 'Matheus',
+    sobrenome: 'Santos',
+    instrumento: 'Guitarra'
+  },
+  {
+    nome: 'Beatriz',
+    sobrenome: 'Santos',
+    instrumento: 'Violão'
+  }
+])
+
+const newMember = ref({})
+const addNewMember = () => {
+  listMembers.value.push(newMember.value)
+}
+</script>
 
 <template>
   <main>
@@ -13,10 +33,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>nome</td>
-          <td>sobrenome</td>
-          <td>instrumento</td>
+        <tr v-for="member in listMembers">
+          <td>{{ member.nome }}</td>
+          <td>{{ member.sobrenome }}</td>
+          <td>{{ member.instrumento }}</td>
         </tr>
       </tbody>
     </table>
@@ -24,22 +44,23 @@
     <section>
       <p>Adicionar membros</p>
       <form>
-        <label for="fname"></label>
-        <input type="text" name="fname" id="fname">
+        <label for="fname">Nome</label>
+        <input type="text" name="fname" id="fname" v-model="newMember.nome">
 
-        <label for="lname"></label>
-        <input type="text" name="lname" id="lname">
+        <label for="lname">Sobrenome</label>
+        <input type="text" name="lname" id="lname" v-model="newMember.sobrenome">
 
-        <select name="instrument" id="intrument">
+        <label for="instrument">Instrumento</label>
+        <select name="instrument" id="intrument" v-model="newMember.instrumento">
           <option value="Baixo">Baixo</option>
           <option value="Guitarra">Guitarra</option>
           <option value="Bateria">Bateria</option>
-          <option value="Baixo">Violão</option>
-          <option value="Baixo">Flauta</option>
-          <option value="Baixo">Violine</option>
+          <option value="Violão">Violão</option>
+          <option value="Flauta">Flauta</option>
+          <option value="Violino">Violino</option>
         </select>
 
-        <input type="button" value="Adicionar" @click="[]">
+        <input type="button" value="Adicionar" @click="addNewMember()">
       </form>
     </section>
   </main>
